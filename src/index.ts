@@ -18,16 +18,17 @@ data.then((data): void => {
     let dataPoints: DataPoints = data.data.data
     let currentDataPoint: number = parseInt(dataPoints[0].value)
 
-    // get html elems 
-    const adviceEl: HTMLElement = document.getElementById('advice')
-    const sentimentEl: HTMLElement = document.getElementById('sentiment')
+    const advice = currentDataPoint < 20 ? "BUY 📈" : currentDataPoint > 90 ? "SELL 📉" : "Hold tight..."
 
     // give advice
-    const advice = currentDataPoint < 20 ? "BUY 📈" : currentDataPoint > 90 ? "SELL 📉" : "Hold tight..."
-    adviceEl.innerText = advice
-    adviceEl.classList.add(advice === "BUY 📈" ? 'buy' : 'sell')
+    const adviceEl: HTMLElement = document.getElementById('advice')
+    adviceEl.innerText = advice.toUpperCase()
+    adviceEl.classList.add(advice === "BUY 📈" ? 'buy' : advice === "Hold tight..." ? 'hold' : 'sell')
+    
+    const sentimentEl: HTMLElement = document.getElementById('sentiment')
+    sentimentEl.innerText = dataPoints[0].value_classification.toLocaleUpperCase()
     sentimentEl.classList.add(advice === "BUY 📈" ? 'buy' : 'sell')
 
-    sentimentEl.innerText = dataPoints[0].value_classification.toLocaleUpperCase()
+    
     }
 )
