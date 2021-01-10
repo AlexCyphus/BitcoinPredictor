@@ -14,12 +14,15 @@ interface DataPoint {
 type DataPoints = Array<DataPoint>
 
 data.then((data): void => {
+    // parse weirdly formatted data
     let dataPoints: DataPoints = data.data.data
-    
     let currentDataPoint: number = parseInt(dataPoints[0].value)
 
+    // get html elems 
     const adviceEl: HTMLElement = document.getElementById('advice')
     const sentimentEl: HTMLElement = document.getElementById('sentiment')
+
+    // give advice
     const advice = currentDataPoint < 20 ? "BUY 📈" : currentDataPoint > 90 ? "SELL 📉" : "Hold tight..."
     adviceEl.innerText = advice
     adviceEl.classList.add(advice === "BUY 📈" ? 'buy' : 'sell')
